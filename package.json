@@ -1,0 +1,16 @@
+{
+  "name": "spaceflight-booking-api",
+  "version": "1.0.0",
+  "description": "Backend API for searching, booking, and managing SpaceX Starship flights.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.6.3"
+  }
+}

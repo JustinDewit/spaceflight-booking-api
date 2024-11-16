@@ -1,4 +1,3 @@
-import express from 'express';
 import { Router } from 'express';
 import { getAllRoutes, getRoute } from '../controllers/routeController';
 

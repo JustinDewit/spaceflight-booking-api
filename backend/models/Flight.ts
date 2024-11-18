@@ -62,5 +62,5 @@ const routeSchema = new mongoose.Schema({
   }
 });
 
-const Route = mongoose.model('Route', routeSchema);
+const Route = mongoose.model('Flight', routeSchema);
 export default Route;

@@ -10,6 +10,7 @@ export const getAllFlights = async (req: Request, res: Response): Promise<void> 
         res.status(500).json({ message: 'Error fetching Flights', error: errorMessage });
     }
 };
+
 export const getFlight = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
@@ -24,5 +25,42 @@ export const getFlight = async (req: Request, res: Response): Promise<void> => {
     } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
         res.status(500).json({ message: 'Error fetching Flight', error: errorMessage });
+    }
+};
+
+export const bookFlight = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { id } = req.params;
+        const flight = await Flight.findById(id);
+        
+        if (!flight) {
+            res.status(404).json({ message: 'Flight not found' });
+            return;
+        }
+
+        if (flight.availableSeats <= 0) {
+            res.status(400).json({ message: 'No seats available on this flight' });
+            return;
+        }
+
+        if (flight.status !== 'SCHEDULED') {
+            res.status(400).json({ 
+                message: 'Flight is not available for booking',
+                status: flight.status 
+            });
+            return;
+        }
+
+        // Decrease available seats
+        flight.availableSeats -= 1;
+        await flight.save();
+
+        res.status(200).json({ 
+            message: 'Flight booked successfully',
+            flight: flight
+        });
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+        res.status(500).json({ message: 'Error booking flight', error: errorMessage });
     }
 };

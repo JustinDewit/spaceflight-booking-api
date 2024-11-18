@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { connectDB } from './db/connect';
-import getRoutes from './routes/getRoutes';
+import flights from './routes/flights';
 
 dotenv.config();
 
@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // Routes
-app.use('/api/routes', getRoutes);
+app.use('/api/routes', flights);
 
 const start = async () => {
   try {

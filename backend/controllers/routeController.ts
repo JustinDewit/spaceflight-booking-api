@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import Route from '../models/Route';
 
 // Get all routes
-export const getAllRoutes = async (req: Request, res: Response): Promise<void> => {
+export const getAllFlights = async (req: Request, res: Response): Promise<void> => {
     try {
         const routes = await Route.find();
         res.status(200).json(routes);
@@ -13,7 +13,7 @@ export const getAllRoutes = async (req: Request, res: Response): Promise<void> =
 };
 
 // Get single route
-export const getRoute = async (req: Request, res: Response): Promise<void> => {
+export const getFlight = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
         const route = await Route.findById(id);

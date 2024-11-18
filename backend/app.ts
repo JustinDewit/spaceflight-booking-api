@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // Routes
-app.use('/api/routes', flights);
+app.use('/api/flights', flights);
 
 const start = async () => {
   try {

@@ -3,7 +3,10 @@ import { getAllFlights, getFlight } from '../controllers/routeController';
 
 const router = Router();
 
-router.get('/', getAllFlights);
-router.get('/:id', getFlight);
+router.route('/')
+  .get(getAllFlights);
+
+router.route('/:id')
+  .get(getFlight);
 
 export default router;

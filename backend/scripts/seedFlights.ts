@@ -1,21 +1,21 @@
 /**
- * Seed Script for Routes
+ * Seed Script for Flights
  * 
- * This script is used to populate the MongoDB database with initial route data.
+ * This script is used to populate the MongoDB database with initial Flight data.
  * It's typically run during development or when setting up a new environment
- * to ensure the database has some sample space flight routes to work with.
+ * to ensure the database has some sample space Flights to work with.
  * 
  * The script will:
- * 1. Clear any existing routes in the database
- * 2. Insert predefined sample routes
+ * 1. Clear any existing Flights in the database
+ * 2. Insert predefined sample Flights
  * 
- * Run this in the terminal: npx ts-node scripts/seedRoutes.ts
+ * Run this in the terminal: npx ts-node scripts/seedFlights.ts
  */
 
 import mongoose from 'mongoose';
-import Route from '../models/Flight';
+import Flight from '../models/Flight';
 
-const sampleRoutes = [
+const sampleFlights = [
   {
     flightNumber: 'MS001',
     departure: {
@@ -72,20 +72,20 @@ const sampleRoutes = [
   },
 ];
 
-async function seedRoutes() {
+async function seedFlights() {
   try {
     // Load environment variables
     require('dotenv').config();
     
     await mongoose.connect(process.env.MONGO_URI as string);
     
-    // Clear existing routes
-    await Route.deleteMany({});
+    // Clear existing Flights
+    await Flight.deleteMany({});
     
-    // Insert new routes
-    await Route.insertMany(sampleRoutes);
+    // Insert new Flight
+    await Flight.insertMany(sampleFlights);
     
-    console.log('Sample routes have been seeded!');
+    console.log('Sample Flights have been seeded!');
     process.exit(0);
   } catch (error) {
     console.error('Error seeding data:', error);
@@ -93,4 +93,4 @@ async function seedRoutes() {
   }
 }
 
-seedRoutes();
+seedFlights();

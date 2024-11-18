@@ -13,7 +13,7 @@
  */
 
 import mongoose from 'mongoose';
-import Route from '../models/Route';
+import Route from '../models/Flight';
 
 const sampleRoutes = [
   {

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Route from '../models/Route';
+import Route from '../models/Flight';
 
 // Get all routes
 export const getAllFlights = async (req: Request, res: Response): Promise<void> => {

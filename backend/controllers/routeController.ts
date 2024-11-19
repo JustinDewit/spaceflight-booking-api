@@ -1,6 +1,7 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import Flight from '../models/Flight';
 import Booking from '../models/Booking';
+import CustomError from '../errors/CustomError';
 
 export const getAllFlights = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -29,40 +30,27 @@ export const getFlight = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
-export const bookFlight = async (req: Request, res: Response): Promise<void> => {
+export const bookFlight = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { id } = req.params;
         const { passenger } = req.body;
 
-        // Validate passenger data
         if (!passenger || !passenger.name || !passenger.email || !passenger.passport) {
-            res.status(400).json({ 
-                message: 'Missing required passenger information' 
-            });
-            return;
+            throw new CustomError(400, 'Missing required passenger information');
         }
 
-        // Find the flight
         const flight = await Flight.findById(id);
         
         if (!flight) {
-            res.status(404).json({ message: 'Flight not found' });
-            return;
+            throw new CustomError(404, 'Flight not found');
         }
 
-        // Check if seats are available
         if (flight.availableSeats <= 0) {
-            res.status(400).json({ message: 'No seats available on this flight' });
-            return;
+            throw new CustomError(400, 'No seats available on this flight');
         }
 
-        // Verify flight is still scheduled
         if (flight.status !== 'SCHEDULED') {
-            res.status(400).json({ 
-                message: 'Flight is not available for booking',
-                status: flight.status 
-            });
-            return;
+            throw new CustomError(400, `Flight is not available for booking. Status: ${flight.status}`);
         }
 
         // Create new booking
@@ -88,8 +76,7 @@ export const bookFlight = async (req: Request, res: Response): Promise<void> => 
             flight: flight
         });
 
-    } catch (error: unknown) {
-        const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-        res.status(500).json({ message: 'Error booking flight', error: errorMessage });
+    } catch (error) {
+        next(error);
     }
 };

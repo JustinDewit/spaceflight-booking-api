@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { connectDB } from './db/connect';
 import flights from './routes/flights';
+import errorHandler from './middleware/errorHandler';
 
 dotenv.config();
 
@@ -12,6 +13,8 @@ app.use(express.json());
 
 // Routes
 app.use('/api/flights', flights);
+
+app.use(errorHandler);
 
 const start = async () => {
   try {

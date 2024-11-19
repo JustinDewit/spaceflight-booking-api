@@ -1,21 +1,22 @@
-version: '3.8'
-
 services:
   backend:
-    build: 
+    build:
       context: ./backend
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    env_file:
-      - ./backend/.env
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - NODE_ENV=production
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        VITE_API_URL: '/api'
     ports:
-      - "5173:5173"
+      - "80:80"
     depends_on:
       - backend
 

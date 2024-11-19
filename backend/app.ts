@@ -4,7 +4,9 @@ import { connectDB } from './db/connect';
 import flights from './routes/flights';
 import errorHandler from './middleware/errorHandler';
 
-dotenv.config();
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config();
+}
 
 const app = express();
 const PORT = process.env.PORT || 3000;

@@ -30,7 +30,7 @@ export function FlightList() {
             <p>From: {flight.departure.location}</p>
             <p>To: {flight.arrival.location}</p>
             <p>Price: ${flight.price}</p>
-            <p>Available Seats: {flight.availableSeats}</p>
+            <p>Available-Seats: {flight.availableSeats}</p>
             <p>Status: {flight.status}</p>
           </div>
         ))}

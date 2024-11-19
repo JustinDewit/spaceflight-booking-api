@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import { getAllFlights, getFlight, bookFlight } from '../controllers/routeController';
+import { bookFlightValidation } from '../validators/flightValidators';
+import { validateRequest } from '../middleware/validateRequest';
 
 const router = Router();
 
@@ -8,6 +10,6 @@ router.route('/')
 
 router.route('/:id')
   .get(getFlight)
-  .post(bookFlight);
+  .post(bookFlightValidation, validateRequest, bookFlight);
 
 export default router;

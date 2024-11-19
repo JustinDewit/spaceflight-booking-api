@@ -35,10 +35,6 @@ export const bookFlight = async (req: Request, res: Response, next: NextFunction
         const { id } = req.params;
         const { passenger } = req.body;
 
-        if (!passenger || !passenger.name || !passenger.email || !passenger.passport) {
-            throw new CustomError(400, 'Missing required passenger information');
-        }
-
         const flight = await Flight.findById(id);
         
         if (!flight) {

@@ -108,3 +108,12 @@ export const deleteBooking = async (req: Request, res: Response, next: NextFunct
         next(error);
     }
 };
+
+export const getBookings = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const bookings = await Booking.find();
+        res.status(200).json(bookings);
+    } catch (error) {
+        next(error);
+    }
+};

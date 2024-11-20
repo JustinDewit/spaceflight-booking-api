@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAllFlights, getFlight, bookFlight, deleteBooking } from '../controllers/routeController';
+import { getAllFlights, getFlight, bookFlight, deleteBooking } from '../controllers/flightController';
 import { bookFlightValidation } from '../validators/flightValidators';
 import { validateRequest } from '../middleware/validateRequest';
 

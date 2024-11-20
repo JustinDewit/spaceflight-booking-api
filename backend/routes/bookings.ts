@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { deleteBooking, getBookings, getBooking } from '../controllers/flightController';
+import { deleteBooking, getBookings, getBooking } from '../controllers/bookingController';
 
 const router = Router();
 

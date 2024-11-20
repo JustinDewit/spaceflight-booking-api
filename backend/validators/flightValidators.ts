@@ -1,5 +1,9 @@
 import { body, ValidationChain } from 'express-validator';
 
+/**
+ * Validation chain for flight booking requests
+ * Performs sanitization (trim, escape) and validation of passenger details
+ */
 export const bookFlightValidation: ValidationChain[] = [
   body('passenger.name')
     .trim()

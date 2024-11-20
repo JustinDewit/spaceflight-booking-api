@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { connectDB } from './db/connect';
 import flights from './routes/flights';
+import bookings from './routes/bookings';
 import errorHandler from './middleware/errorHandler';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -15,6 +16,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/flights', flights);
+app.use('/api/bookings', bookings);
 
 app.use(errorHandler);
 

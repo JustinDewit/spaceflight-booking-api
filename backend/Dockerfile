@@ -7,11 +7,12 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Production stage
+# Development stage
 FROM node:20-slim
 WORKDIR /app
 COPY package*.json ./
-RUN npm install --production
+RUN npm install
 COPY --from=builder /app/dist ./dist
+COPY . .
 EXPOSE 3000
-CMD ["node", "dist/app.js"]
+CMD ["npm", "run", "dev"]

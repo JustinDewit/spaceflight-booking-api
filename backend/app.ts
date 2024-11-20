@@ -20,18 +20,24 @@ app.use('/api/bookings', bookings);
 
 app.use(errorHandler);
 
-const start = async () => {
-  try {
-    if (!process.env.MONGO_URI) {
-      throw new Error('MONGO_URI is not defined in environment variables');
-    }
-    await connectDB(process.env.MONGO_URI);
-    app.listen(PORT, () => {
-      console.log(`Server is listening on port ${PORT}...`);
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
+// Export the app instance for testing
+export default app;
 
-start();
+// Start the server only if not in test mode
+if (process.env.NODE_ENV !== 'test') {
+  const start = async () => {
+    try {
+      if (!process.env.MONGO_URI) {
+        throw new Error('MONGO_URI is not defined in environment variables');
+      }
+      await connectDB(process.env.MONGO_URI);
+      app.listen(PORT, () => {
+        console.log(`Server is listening on port ${PORT}...`);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  start();
+}

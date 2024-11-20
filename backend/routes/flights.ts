@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAllFlights, getFlight, bookFlight } from '../controllers/routeController';
+import { getAllFlights, getFlight, bookFlight, deleteBooking } from '../controllers/routeController';
 import { bookFlightValidation } from '../validators/flightValidators';
 import { validateRequest } from '../middleware/validateRequest';
 
@@ -11,5 +11,8 @@ router.route('/')
 router.route('/:id')
   .get(getFlight)
   .post(bookFlightValidation, validateRequest, bookFlight);
+
+router.route('/booking/:bookingId')
+  .delete(deleteBooking);
 
 export default router;

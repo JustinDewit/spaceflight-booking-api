@@ -5,11 +5,14 @@ import flights from './routes/flights';
 import bookings from './routes/bookings';
 import errorHandler from './middleware/errorHandler';
 
+// Load .env when in dev; prod will use platform vars (aws, heroku etc..) for security
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config();
 }
 
 const app = express();
+
+// Use env var PORT if deployed on hosting platform, otherwise default to 3000
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -20,10 +23,10 @@ app.use('/api/bookings', bookings);
 
 app.use(errorHandler);
 
-// Export the app instance for testing
+// Export app for testing API endpoints without a live server
 export default app;
 
-// Start the server only if not in test mode
+// Start the server only if not in test mode and only after Mongodb connection established
 if (process.env.NODE_ENV !== 'test') {
   const start = async () => {
     try {

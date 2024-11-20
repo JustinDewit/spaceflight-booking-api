@@ -76,3 +76,35 @@ export const bookFlight = async (req: Request, res: Response, next: NextFunction
         next(error);
     }
 };
+
+export const deleteBooking = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const { bookingId } = req.params;
+        
+        const booking = await Booking.findById(bookingId);
+        
+        if (!booking) {
+            throw new CustomError(404, 'Booking not found');
+        }
+
+        const flight = await Flight.findById(booking.flightId);
+        
+        if (!flight) {
+            throw new CustomError(404, 'Associated flight not found');
+        }
+
+        // Increment available seats back
+        flight.availableSeats += 1;
+        await flight.save();
+
+        await Booking.findByIdAndDelete(bookingId);
+
+        res.status(200).json({ 
+            message: 'Booking cancelled successfully',
+            flight: flight
+        });
+
+    } catch (error) {
+        next(error);
+    }
+};

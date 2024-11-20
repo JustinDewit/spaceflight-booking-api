@@ -117,3 +117,18 @@ export const getBookings = async (req: Request, res: Response, next: NextFunctio
         next(error);
     }
 };
+
+export const getBooking = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const { bookingId } = req.params;
+        const booking = await Booking.findById(bookingId);
+        
+        if (!booking) {
+            throw new CustomError(404, 'Booking not found');
+        }
+        
+        res.status(200).json(booking);
+    } catch (error) {
+        next(error);
+    }
+};

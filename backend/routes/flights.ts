@@ -12,7 +12,4 @@ router.route('/:id')
   .get(getFlight)
   .post(bookFlightValidation, validateRequest, bookFlight);
 
-router.route('/booking/:bookingId')
-  .delete(deleteBooking);
-
 export default router;

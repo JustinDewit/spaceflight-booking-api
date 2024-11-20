@@ -27,7 +27,7 @@ export const getBooking = async (req: Request, res: Response, next: NextFunction
     }
 };
 
-export const bookFlight = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const postBooking = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { id } = req.params;
         const { passenger } = req.body;

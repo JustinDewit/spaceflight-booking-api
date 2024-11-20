@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import Flight from '../models/Flight';
 
-export const getAllFlights = async (req: Request, res: Response): Promise<void> => {
+export const getFlights = async (req: Request, res: Response): Promise<void> => {
     try {
         const flights = await Flight.find();
         res.status(200).json(flights);

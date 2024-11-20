@@ -1,16 +1,16 @@
 import { Router } from 'express';
-import { getAllFlights, getFlight } from '../controllers/flightController';
-import { bookFlight } from '../controllers/bookingController';
+import { getFlights, getFlight } from '../controllers/flightController';
+import { postBooking } from '../controllers/bookingController';
 import { bookFlightValidation } from '../validators/flightValidators';
 import { validateRequest } from '../middleware/validateRequest';
 
 const router = Router();
 
 router.route('/')
-  .get(getAllFlights);
+  .get(getFlights);
 
 router.route('/:id')
   .get(getFlight)
-  .post(bookFlightValidation, validateRequest, bookFlight);
+  .post(bookFlightValidation, validateRequest, postBooking);
 
 export default router;
